@@ -1,7 +1,10 @@
 import Link from "next/link";
+import { useContext } from "react";
+import { auth } from "../lib/firebase";
+import { UserContext } from "../lib/context";
 
-export default function Navbar(props) {
-  const { user, username } = props;
+export default function Navbar() {
+  const { user, username } = useContext(UserContext);
 
   return (
     <nav className="navbar">
@@ -12,7 +15,7 @@ export default function Navbar(props) {
           </Link>
         </li>
 
-        {username && (
+        {user && (
           <>
             <li className="push-left">
               <Link href="/admin">
@@ -20,14 +23,17 @@ export default function Navbar(props) {
               </Link>
             </li>
             <li>
+              <SignOutButton />
+            </li>
+            <li>
               <Link href={"/${username}"}>
-                <img src={user?.photoURL} />
+                <img src={user.photoURL} />
               </Link>
             </li>
           </>
         )}
 
-        {!username && (
+        {!user && (
           <li>
             <Link href="/enter">
               <button className="btn-blue">Log in</button>
@@ -37,4 +43,8 @@ export default function Navbar(props) {
       </ul>
     </nav>
   );
+}
+
+function SignOutButton() {
+  return <button onClick={() => auth.signOut()}>Sign Out</button>;
 }

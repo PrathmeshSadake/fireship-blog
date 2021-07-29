@@ -1,8 +1,10 @@
 import { auth, googleAuthProvider } from "../lib/firebase";
+import { useContext } from "react";
+import { UserContext } from "../lib/context";
 
 function Enter() {
-  const user = null;
-  const username = null;
+  const { user, username } = useContext(UserContext);
+  console.log(user, username);
   return (
     <main>
       {user ? (
@@ -35,5 +37,5 @@ function SignOutButton() {
   return <button onClick={() => auth.signOut()}>Sign Out</button>;
 }
 function UsernameForm() {
-  return <div></div>;
+  return <div>NO USERNAME</div>;
 }
