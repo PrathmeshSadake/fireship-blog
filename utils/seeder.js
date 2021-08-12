@@ -1,0 +1,29 @@
+const Room = require("../models/room");
+const mongoose = require("mongoose");
+
+const roomsData = require("../data/rooms");
+
+mongoose
+  .connect("mongodb://localhost:27017/hotellocato", {
+    useCreateIndex: true,
+    useFindAndModify: false,
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
+  .then(() => console.log("Connected to local database"));
+
+const seedRooms = async () => {
+  try {
+    await Room.deleteMany();
+    console.log("Rooms are Deleted");
+
+    await Room.insertMany(roomsData);
+    console.log("All Rooms are Added");
+    process.exit();
+  } catch (error) {
+    console.log(error.message);
+    process.exit();
+  }
+};
+
+seedRooms();
