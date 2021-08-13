@@ -7,7 +7,9 @@ import {
   updateRoomById,
 } from "../../../controllers/roomControllers";
 
-const handler = nc();
+import onError from "../../../middlewares/errors";
+
+const handler = nc({ onError });
 dbConnect();
 
 handler.get(getRoomById);
