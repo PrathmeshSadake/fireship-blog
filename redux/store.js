@@ -4,7 +4,7 @@ import thunkMiddleware from "redux-thunk";
 
 import reducers from "./reducers/reducers";
 
-const bindMiddlewares = (middleware) => {
+const bindMiddleware = (middleware) => {
   if (process.env.NODE_ENV !== "production") {
     const { composeWithDevTools } = require("redux-devtools-extension");
     return composeWithDevTools(applyMiddleware(...middleware));
@@ -25,7 +25,7 @@ const reducer = (state, action) => {
 };
 
 const initStore = () => {
-  return createStore(reducer, bindMiddlewares([thunkMiddleware]));
+  return createStore(reducer, bindMiddleware([thunkMiddleware]));
 };
-
+ 
 export const wrapper = createWrapper(initStore);
